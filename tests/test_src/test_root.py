@@ -4,6 +4,18 @@ from src.root import Root
 from src.sounds import Sounds
 from src.word import Word
 
+def test_roots_have_kind():
+    r = Root(gloss="foo")
+    assert r.kind == "root"
+
+def test_roots_do_not_have_side():
+    with pytest.raises(Exception):
+        r = Root(gloss="foo", side="left")
+
+def test_roots_contain_sounds():
+    r = Root(gloss="foo", ipa="tʃ", spelling="ch")
+    assert type(r.segments[0]) == Sounds
+
 def test_root_requires_a_gloss():
     with pytest.raises(Exception):
         r = Root(ipa="fu", spelling="foo")

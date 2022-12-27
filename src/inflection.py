@@ -1,27 +1,25 @@
-from src.nonroot import Nonroot
+from src.affix import Affix
 
 class Inflection():
-    def __init__(self, side, kind, segments=None, function=None, gloss=""):
+    def __init__(self, side, gloss, segments=None, function=None, **kwargs):
         self.side = side
-        self.kind = kind
-        self.segments = segments or []
+        self.segments = segments
         self.function = function
         self.gloss = gloss
+        self.kwargs = kwargs
 
     def realize(self, word):
         if self.function:
             args = {
                 **self.function(word), 
                 "side": self.side,
-                "kind": self.kind,
-                "affixtype": self
+                "gloss": self.gloss
             }
-            return Nonroot(**args)
+            return Affix(**args)
         else:
-            return Nonroot(
+            return Affix(
                 side = self.side,
-                kind = self.kind,
-                segments = self.segments,
                 gloss = self.gloss,
-                affixtype = self
+                segments = self.segments,
+                **self.kwargs
             )   
