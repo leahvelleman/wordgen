@@ -60,17 +60,5 @@ def test_subclassing_with_function():
     w = Noun([Root(Sounds(ipa="kora"))])
     assert w.dep().morphemes[-1].segments == "h"
 
-def test_subclassing_with_nontrivial_function():
-    dep_suffix = Inflection(
-        kind="affix", 
-        side="right", 
-    )
-    class Noun(Word):
-        def dep(self):
-            return self.apply(dep_suffix)
-    
-    w = Noun([Root(Sounds(ipa="kora"))])
-    assert w.dep().morphemes[-1].segments == "h"
-
 
 # applying an inflection puts the created nonroot on the correct side

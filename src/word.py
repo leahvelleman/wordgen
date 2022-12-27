@@ -12,6 +12,6 @@ class Word():
 
     def apply(self, inflection):
         copy = deepcopy(self)
-        nonroot = inflection.realize(self)
-        self.affix(nonroot)
-        return self
+        nonroot = inflection.realize(copy)
+        copy.affix(nonroot)
+        return copy
