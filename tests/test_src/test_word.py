@@ -7,7 +7,7 @@ from src.sounds import Sounds
 def test_left_affixing_with_segments_works():
     segs = [Sounds("ch", "tʃ")]
     a = Nonroot(kind="affix", side="left", segments=segs)
-    r = Root(segments=[Sounds("a", "a")])
+    r = Root(segments=[Sounds("a", "a")], gloss="gloss")
     w = Word([r])
     w.affix(a)
     assert w.morphemes[0].segments == segs
@@ -15,7 +15,7 @@ def test_left_affixing_with_segments_works():
 def test_right_affixing_with_segments_works():
     segs = [Sounds("ch", "tʃ")]
     a = Nonroot(kind="affix", side="right", segments=segs)
-    r = Root(segments=[Sounds("a", "a")])
+    r = Root(segments=[Sounds("a", "a")], gloss="gloss")
     w = Word([r])
     w.affix(a)
     assert w.morphemes[-1].segments == segs
