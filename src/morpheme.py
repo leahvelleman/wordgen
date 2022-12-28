@@ -12,3 +12,11 @@ class Morpheme():
                 raise Exception
         else:
             self.segments = [Sounds(**kwargs)]
+
+    @property
+    def ipa(self):
+        return "".join([s.ipa for s in self.segments])
+
+    @property
+    def spelling(self):
+        return "".join([s.spelling for s in self.segments])

@@ -16,6 +16,16 @@ def test_roots_contain_sounds():
     r = Root(gloss="foo", ipa="tʃ", spelling="ch")
     assert type(r.segments[0]) == Sounds
 
+def test_root_ipa_property():
+    s = [Sounds(ipa="ab", spelling="12"), Sounds(ipa="cd", spelling="34")]
+    r = Root(gloss="foo", segments=s)
+    assert r.ipa == "abcd"
+
+def test_root_spelling_property():
+    s = [Sounds(ipa="ab", spelling="12"), Sounds(ipa="cd", spelling="34")]
+    r = Root(gloss="foo", segments=s)
+    assert r.spelling == "1234"
+
 def test_root_requires_a_gloss():
     with pytest.raises(Exception):
         r = Root(ipa="fu", spelling="foo")

@@ -1,4 +1,5 @@
 from copy import deepcopy
+import re
 from src.root import Root
 from src.affix import Affix
 
@@ -28,3 +29,17 @@ class Word():
         nonroot = inflection.realize(copy)
         copy.affix(nonroot)
         return copy
+
+    @property
+    def ipa(self):
+        return "".join([m.ipa for m in self.morphemes])
+
+    @property
+    def spelling(self):
+        return "".join([m.spelling for m in self.morphemes])
+
+    def find(self, needle):
+        haystack = self.ipa
+        return re.search(needle, haystack).span()
+
+    

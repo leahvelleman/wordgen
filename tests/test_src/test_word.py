@@ -46,6 +46,39 @@ def test_applying_an_inflection_leaves_original_word_unchanged():
     w.apply(i)
     assert len(w.morphemes) == 1
 
+def test_ipa_method_gives_concatenated_ipa_strings():
+    w = Word(morphemes=[
+             Root(spelling="ab", ipa="12", gloss="wx"),
+             Affix(side="right", spelling="cd", ipa="34", gloss="yz")],
+        definition="foo")
+    assert w.ipa == "1234"
+
+def test_spelling_method_gives_concatenated_spelling_strings():
+    w = Word(morphemes=[
+             Root(spelling="ab", ipa="12", gloss="wx"),
+             Affix(side="right", spelling="cd", ipa="34", gloss="yz")],
+        definition="foo")
+    assert w.spelling == "abcd"
+
+def test_find_works_on_monomorphemic_word():
+    w = Word(
+        morphemes=[
+            Root(spelling="", ipa="abcde", gloss="")
+        ],
+        definition="foo"
+    )
+    assert w.find("bc") == (1,3)
+
+def test_find_works_on_multimorphemic_word():
+    w = Word(
+        morphemes=[
+            Root(spelling="", ipa="ab", gloss=""),
+            Affix(side="right", spelling="", ipa="cde", gloss="")
+        ],
+        definition="foo"
+    )
+    assert w.find("bc") == (1,3)
+
 def test_subclassing():
     dep_suffix = Inflection(side="right", gloss="test", segments=[Sounds(ipa="h")])
     class Noun(Word):
@@ -67,6 +100,8 @@ def test_subclassing_with_function():
     
     w = Noun(spelling="a", ipa="b", gloss="c", definition="d")
     assert w.dep().morphemes[-1].segments[0].ipa == "h"
+
+
 
 
 # applying an inflection puts the created nonroot on the correct side
