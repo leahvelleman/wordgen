@@ -14,8 +14,3 @@ def test_cant_add_a_state_twice():
     with pytest.raises(Exception):
         sm.add_state(12)
 
-def test_adding_an_arc_between_existing_states():
-    sm = StateMachine()
-    sm.add_state(12)
-    sm.add_state(13)
-    sm.add_arc
